@@ -40,5 +40,8 @@ class Validation extends BaseConfig
 
     // --------------------------------------------------------------------
     // Rules
+        public $strong_password = [
+        'strong_password' => 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+    ];
     // --------------------------------------------------------------------
 }

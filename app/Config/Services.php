@@ -4,29 +4,28 @@ namespace Config;
 
 use CodeIgniter\Config\BaseService;
 
-/**
- * Services Configuration file.
- *
- * Services are simply other classes/libraries that the system uses
- * to do its job. This is used by CodeIgniter to allow the core of the
- * framework to be swapped out easily without affecting the usage within
- * the rest of your application.
- *
- * This file holds any application-specific services, or service overrides
- * that you might need. An example has been included with the general
- * method format you should use for your service methods. For more examples,
- * see the core Services file at system/Config/Services.php.
- */
 class Services extends BaseService
 {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
+    // ... existing service methods ...
+
+    /**
+     * The Validation factory.
+     * Hapus method ini atau kembalikan ke default
+     * CodeIgniter sudah menyediakan validation service default
      */
+    
+    // HAPUS method validation() yang menyebabkan infinite loop
+    // atau gunakan ini jika ingin custom:
+    
+    public static function validation($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('validation');
+        }
+
+        $config = config('Validation');
+        
+        // Gunakan cara yang benar tanpa recursive call
+        return new \CodeIgniter\Validation\Validation($config, service('renderer'));
+    }
 }
