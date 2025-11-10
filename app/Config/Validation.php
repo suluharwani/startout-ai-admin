@@ -3,45 +3,27 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
-use CodeIgniter\Validation\StrictRules\CreditCardRules;
-use CodeIgniter\Validation\StrictRules\FileRules;
-use CodeIgniter\Validation\StrictRules\FormatRules;
-use CodeIgniter\Validation\StrictRules\Rules;
+use CodeIgniter\Validation\CreditCardRules;
+use CodeIgniter\Validation\FileRules;
+use CodeIgniter\Validation\FormatRules;
+use CodeIgniter\Validation\Rules;
 
 class Validation extends BaseConfig
 {
-    // --------------------------------------------------------------------
-    // Setup
-    // --------------------------------------------------------------------
-
-    /**
-     * Stores the classes that contain the
-     * rules that are available.
-     *
-     * @var list<string>
-     */
-    public array $ruleSets = [
+    public $ruleSets = [
         Rules::class,
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
     ];
 
-    /**
-     * Specifies the views that are used to display the
-     * errors.
-     *
-     * @var array<string, string>
-     */
-    public array $templates = [
+    public $templates = [
         'list'   => 'CodeIgniter\Validation\Views\list',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
-    // --------------------------------------------------------------------
-    // Rules
-        public $strong_password = [
-        'strong_password' => 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+    // Custom validation rules
+    public $unique_except = [
+        'unique_except' => 'The {field} field must be unique, except for the record with ID {param}.'
     ];
-    // --------------------------------------------------------------------
 }

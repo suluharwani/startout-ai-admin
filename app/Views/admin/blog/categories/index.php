@@ -3,9 +3,9 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Manage Blog Posts</h1>
-        <a href="<?= base_url('/admin/blog/create') ?>" class="btn btn-primary">
-            <i class="fas fa-plus me-1"></i> Add New Post
+        <h1 class="h2">Manage Blog Categories</h1>
+        <a href="<?= base_url('/admin/blog/categories/create') ?>" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i> Add New Category
         </a>
     </div>
 
@@ -26,64 +26,49 @@
 
     <div class="card">
         <div class="card-body">
-            <?php if (!empty($posts)): ?>
+            <?php if (!empty($categories)): ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
                                 <th width="60">#</th>
-                                <th>Post Title</th>
-                                <th>Author</th>
-                                <th>Status</th>
-                                <th>Views</th>
-                                <th>Published</th>
+                                <th>Category Name</th>
+                                <th>Description</th>
+                                <th>Posts</th>
+                                <th>Slug</th>
                                 <th width="120">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($posts as $index => $post): ?>
+                            <?php foreach ($categories as $index => $category): ?>
                             <tr>
                                 <td><?= $index + 1 ?></td>
                                 <td>
-                                    <div>
-                                        <strong><?= esc($post['title']) ?></strong>
-                                        <?php if (!empty($post['slug'])): ?>
-                                            <br>
-                                            <small class="text-muted">/<?= esc($post['slug']) ?></small>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                                <td>
-                                    <small><?= esc($post['first_name'] . ' ' . $post['last_name']) ?></small>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('/admin/blog/toggle-status/' . $post['id']) ?>" 
-                                       class="badge bg-<?= $post['is_published'] ? 'success' : 'secondary' ?> text-decoration-none"
-                                       onclick="return confirm('Are you sure you want to <?= $post['is_published'] ? 'unpublish' : 'publish' ?> this post?')">
-                                        <i class="fas fa-<?= $post['is_published'] ? 'eye' : 'eye-slash' ?> me-1"></i>
-                                        <?= $post['is_published'] ? 'Published' : 'Draft' ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">
-                                        <i class="fas fa-eye me-1"></i>
-                                        <?= $post['view_count'] ?>
-                                    </span>
+                                    <strong><?= esc($category['name']) ?></strong>
                                 </td>
                                 <td>
                                     <small class="text-muted">
-                                        <?= $post['published_at'] ? date('M j, Y', strtotime($post['published_at'])) : 'Not published' ?>
+                                        <?= esc($category['description'] ?: 'No description') ?>
                                     </small>
                                 </td>
                                 <td>
+                                    <span class="badge bg-primary">
+                                        <i class="fas fa-file-alt me-1"></i>
+                                        <?= $category['post_count'] ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <code><?= esc($category['slug']) ?></code>
+                                </td>
+                                <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('/admin/blog/edit/' . $post['id']) ?>" 
+                                        <a href="<?= base_url('/admin/blog/categories/edit/' . $category['id']) ?>" 
                                            class="btn btn-outline-primary" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="<?= base_url('/admin/blog/delete/' . $post['id']) ?>" 
+                                        <a href="<?= base_url('/admin/blog/categories/delete/' . $category['id']) ?>" 
                                            class="btn btn-outline-danger" title="Delete"
-                                           onclick="return confirm('Are you sure you want to delete this blog post? This action cannot be undone.')">
+                                           onclick="return confirm('Are you sure you want to delete this category? This action cannot be undone.')">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
@@ -95,11 +80,11 @@
                 </div>
             <?php else: ?>
                 <div class="text-center py-5">
-                    <i class="fas fa-blog fa-3x text-muted mb-3"></i>
-                    <h5>No Blog Posts Found</h5>
-                    <p class="text-muted">Get started by creating your first blog post.</p>
-                    <a href="<?= base_url('/admin/blog/create') ?>" class="btn btn-primary">
-                        <i class="fas fa-plus me-1"></i> Add New Post
+                    <i class="fas fa-tags fa-3x text-muted mb-3"></i>
+                    <h5>No Categories Found</h5>
+                    <p class="text-muted">Get started by creating your first category.</p>
+                    <a href="<?= base_url('/admin/blog/categories/create') ?>" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> Add New Category
                     </a>
                 </div>
             <?php endif; ?>

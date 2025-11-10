@@ -24,12 +24,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?= strpos(current_url(), '/admin/blog') !== false ? 'active' : '' ?>" 
-                   href="<?= base_url('/admin/blog') ?>">
-                    <i class="fas fa-blog me-2"></i>
-                    Blog Posts
-                </a>
-            </li>
+    <a class="nav-link <?= strpos(current_url(), '/admin/blog') !== false && strpos(current_url(), '/categories') === false ? 'active' : '' ?>" 
+       href="<?= base_url('/admin/blog') ?>">
+        <i class="fas fa-blog me-2"></i>
+        Blog Posts
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link <?= strpos(current_url(), '/admin/blog/categories') !== false ? 'active' : '' ?>" 
+       href="<?= base_url('/admin/blog/categories') ?>">
+        <i class="fas fa-tags me-2"></i>
+        Categories
+    </a>
+</li>
+            
             <li class="nav-item">
                 <a class="nav-link <?= strpos(current_url(), '/admin/jobs') !== false ? 'active' : '' ?>" 
                    href="<?= base_url('/admin/jobs') ?>">

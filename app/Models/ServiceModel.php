@@ -18,10 +18,9 @@ class ServiceModel extends Model
     protected $updatedField = 'updated_at';
     protected $returnType = 'array';
 
-    // Validation rules
+    // Simple validation rules - tanpa placeholder
     public $validationRules = [
         'name' => 'required|min_length[3]|max_length[255]',
-        'slug' => 'required|alpha_dash|min_length[3]|max_length[255]|is_unique[services.slug,id,{id}]',
         'description' => 'required|min_length[10]|max_length[500]',
         'icon_class' => 'permit_empty|max_length[100]',
         'sort_order' => 'permit_empty|integer'
@@ -63,5 +62,19 @@ class ServiceModel extends Model
                     ->join('services as parent', 'services.parent_service_id = parent.id', 'left')
                     ->where('services.id', $id)
                     ->first();
+    }
+
+    /**
+     * Check if slug is unique (excluding current ID for updates)
+     */
+    public function isSlugUnique($slug, $id = null)
+    {
+        $builder = $this->where('slug', $slug);
+        
+        if ($id) {
+            $builder->where('id !=', $id);
+        }
+        
+        return $builder->countAllResults() === 0;
     }
 }

@@ -44,21 +44,26 @@ class Services extends BaseController
 
     public function store()
     {
-        $rules = $this->serviceModel->validationRules;
-
-        // Generate slug if not provided
-        $slug = $this->request->getPost('slug');
-        if (empty($slug)) {
-            $slug = $this->serviceModel->generateSlug($this->request->getPost('name'));
-            $_POST['slug'] = $slug; // Set the slug for validation
-        }
-
-        if (!$this->validate($rules)) {
+        // Basic validation tanpa slug uniqueness check di rules
+        if (!$this->validate($this->serviceModel->validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        // Handle slug manually
+        $name = $this->request->getPost('name');
+        $slug = $this->request->getPost('slug');
+        
+        if (empty($slug)) {
+            $slug = $this->serviceModel->generateSlug($name);
+        }
+
+        // Manual slug uniqueness check
+        if (!$this->serviceModel->isSlugUnique($slug)) {
+            return redirect()->back()->withInput()->with('error', 'The slug is already taken. Please choose a different one.');
+        }
+
         $serviceData = [
-            'name' => $this->request->getPost('name'),
+            'name' => $name,
             'slug' => $slug,
             'description' => $this->request->getPost('description'),
             'detailed_description' => $this->request->getPost('detailed_description'),
@@ -108,23 +113,27 @@ class Services extends BaseController
             return redirect()->to('/admin/services')->with('error', 'Service not found.');
         }
 
-        $rules = $this->serviceModel->validationRules;
-        $rules['slug'] = "required|alpha_dash|min_length[3]|max_length[255]|is_unique[services.slug,id,{$id}]";
-
-        // Generate slug if not provided
-        $slug = $this->request->getPost('slug');
-        if (empty($slug)) {
-            $slug = $this->serviceModel->generateSlug($this->request->getPost('name'));
-            $_POST['slug'] = $slug;
+        // Basic validation
+        if (!$this->validate($this->serviceModel->validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        // Handle slug manually
+        $name = $this->request->getPost('name');
+        $slug = $this->request->getPost('slug');
+        
+        if (empty($slug)) {
+            $slug = $this->serviceModel->generateSlug($name);
+        }
+
+        // Manual slug uniqueness check (excluding current ID)
+        if (!$this->serviceModel->isSlugUnique($slug, $id)) {
+            return redirect()->back()->withInput()->with('error', 'The slug is already taken. Please choose a different one.');
         }
 
         $serviceData = [
             'id' => $id,
-            'name' => $this->request->getPost('name'),
+            'name' => $name,
             'slug' => $slug,
             'description' => $this->request->getPost('description'),
             'detailed_description' => $this->request->getPost('detailed_description'),
