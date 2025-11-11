@@ -61,6 +61,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 });
+// Sidebar dropdown positioning
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap dropdowns
+    const dropdowns = document.querySelectorAll('.sidebar .dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        // Adjust dropdown position on show
+        dropdown.addEventListener('show.bs.dropdown', function() {
+            // Reset position first
+            menu.style.position = 'absolute';
+            menu.style.left = '100%';
+            menu.style.top = '0';
+            menu.style.marginLeft = '1px';
+            menu.style.zIndex = '1001';
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.sidebar .dropdown')) {
+            const openDropdowns = document.querySelectorAll('.sidebar .dropdown-menu.show');
+            openDropdowns.forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+    
+    // Auto-close other dropdowns when one opens
+    document.querySelectorAll('.sidebar .dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            const currentDropdown = this.closest('.dropdown');
+            const allDropdowns = document.querySelectorAll('.sidebar .dropdown');
+            
+            allDropdowns.forEach(dropdown => {
+                if (dropdown !== currentDropdown) {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.remove('show');
+                    }
+                }
+            });
+        });
+    });
+});
 </script>
 </body>
 </html>

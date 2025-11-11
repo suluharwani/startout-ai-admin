@@ -39,6 +39,7 @@ class Settings extends BaseController
 
         if ($settings && is_array($settings)) {
             $successCount = 0;
+            $totalCount = count($settings);
             
             foreach ($settings as $key => $value) {
                 if ($this->siteSettingsModel->updateSetting($key, $value)) {
@@ -47,7 +48,7 @@ class Settings extends BaseController
             }
 
             if ($successCount > 0) {
-                return redirect()->to('/admin/settings')->with('success', "{$successCount} settings updated successfully!");
+                return redirect()->to('/admin/settings')->with('success', "{$successCount} of {$totalCount} settings updated successfully!");
             } else {
                 return redirect()->to('/admin/settings')->with('error', 'Failed to update settings.');
             }

@@ -68,3 +68,50 @@ $routes->group('admin/blog/categories', function($routes) {
 $routes->get('/admin/settings', 'Admin\Settings::index');
 $routes->post('/admin/settings/update', 'Admin\Settings::update');
 $routes->post('/admin/settings/update-single', 'Admin\Settings::updateSingle');
+$routes->get('/admin/settings', 'Admin\Settings::index');
+$routes->post('/admin/settings/update', 'Admin\Settings::update');
+$routes->post('/admin/settings/update-single', 'Admin\Settings::updateSingle');
+
+$routes->get('/admin/jobs', 'Admin\Jobs::index');
+$routes->get('/admin/jobs/create', 'Admin\Jobs::create');
+$routes->post('/admin/jobs/store', 'Admin\Jobs::store');
+$routes->get('/admin/jobs/edit/(:num)', 'Admin\Jobs::edit/$1');
+$routes->post('/admin/jobs/update/(:num)', 'Admin\Jobs::update/$1');
+$routes->get('/admin/jobs/delete/(:num)', 'Admin\Jobs::delete/$1');
+$routes->get('/admin/jobs/toggle-status/(:num)', 'Admin\Jobs::toggleStatus/$1');
+
+// Client Management Routes
+// Client Management Routes
+$routes->get('/admin/clients', 'Admin\Clients::index');
+$routes->get('/admin/clients/create', 'Admin\Clients::create');
+$routes->post('/admin/clients/store', 'Admin\Clients::store');
+$routes->get('/admin/clients/edit/(:num)', 'Admin\Clients::edit/$1');
+$routes->post('/admin/clients/update/(:num)', 'Admin\Clients::update/$1');
+$routes->get('/admin/clients/delete/(:num)', 'Admin\Clients::delete/$1');
+$routes->get('/admin/clients/toggle-status/(:num)', 'Admin\Clients::toggleStatus/$1');
+
+// Subscriptions Routes
+$routes->get('/admin/subscriptions', 'Admin\Subscriptions::index');
+$routes->get('/admin/subscriptions/create', 'Admin\Subscriptions::create');
+$routes->post('/admin/subscriptions/store', 'Admin\Subscriptions::store');
+$routes->get('/admin/subscriptions/edit/(:num)', 'Admin\Subscriptions::edit/$1');
+$routes->post('/admin/subscriptions/update/(:num)', 'Admin\Subscriptions::update/$1');
+$routes->get('/admin/subscriptions/delete/(:num)', 'Admin\Subscriptions::delete/$1');
+$routes->get('/admin/subscriptions/toggle-status/(:num)', 'Admin\Subscriptions::toggleStatus/$1');
+
+
+// Invoices Routes
+$routes->get('/admin/invoices', 'Admin\Invoices::index');
+$routes->get('/admin/invoices/create', 'Admin\Invoices::create');
+$routes->post('/admin/invoices/store', 'Admin\Invoices::store');
+$routes->get('/admin/invoices/view/(:num)', 'Admin\Invoices::view/$1');
+$routes->get('/admin/invoices/edit/(:num)', 'Admin\Invoices::edit/$1');
+$routes->post('/admin/invoices/update/(:num)', 'Admin\Invoices::update/$1');
+$routes->get('/admin/invoices/delete/(:num)', 'Admin\Invoices::delete/$1');
+$routes->post('/admin/invoices/mark-as-paid/(:num)', 'Admin\Invoices::markAsPaid/$1');
+$routes->get('/admin/invoices/download/(:num)', 'Admin\Invoices::download/$1');
+
+// Industries Routes
+$routes->get('/admin/industries', 'Admin\Industries::index');
+$routes->get('/admin/industries/create', 'Admin\Industries::create');
+$routes->post('/admin/industries/store', 'Admin\Industries::store');

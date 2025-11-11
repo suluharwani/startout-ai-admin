@@ -13,28 +13,95 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- Custom CSS -->
     <style>
-        .sidebar {
-            min-height: calc(100vh - 56px);
-            background-color: #343a40;
-        }
-        .sidebar .nav-link {
-            color: #fff;
-            padding: 0.75rem 1rem;
-        }
-        .sidebar .nav-link:hover {
-            background-color: #495057;
-        }
-        .sidebar .nav-link.active {
-            background-color: #0d6efd;
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
-        /* SweetAlert custom styling */
-        .swal2-popup {
-            font-size: 1rem;
-        }
-    </style>
+            .sidebar {
+        min-height: calc(100vh - 56px);
+        background-color: #343a40;
+        z-index: 1000;
+    }
+    .sidebar .nav-link {
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border: none;
+        transition: all 0.3s;
+    }
+    .sidebar .nav-link:hover {
+        background-color: #495057;
+        color: #fff;
+    }
+    .sidebar .nav-link.active {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    
+    /* Dropdown styling */
+    .sidebar .dropdown-menu {
+        background-color: #495057;
+        border: none;
+        border-radius: 0.375rem;
+        margin: 0;
+        padding: 0;
+        /* Geser dropdown ke kanan */
+        position: absolute;
+        left: 100% !important;
+        top: 0 !important;
+        margin-left: 1px;
+        min-width: 200px;
+    }
+    
+    .sidebar .dropdown-item {
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border: none;
+        transition: all 0.3s;
+    }
+    
+    .sidebar .dropdown-item:hover,
+    .sidebar .dropdown-item:focus {
+        background-color: #5a6268;
+        color: #fff;
+    }
+    
+    .sidebar .dropdown-item.active {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+    
+    .sidebar .dropdown-toggle::after {
+        float: right;
+        margin-top: 8px;
+    }
+    
+    /* Dropdown positioning untuk sidebar */
+    .sidebar .nav-item.dropdown {
+        position: relative;
+    }
+    
+    /* Pastikan dropdown tidak terpotong */
+    .sidebar .dropdown-menu.show {
+        display: block;
+    }
+    
+
+    
+    .navbar-brand {
+        font-weight: bold;
+    }
+    
+    /* SweetAlert custom styling */
+    .swal2-popup {
+        font-size: 1rem;
+    }
+    
+    /* Page title styling */
+    .page-title-box {
+        padding: 20px 0;
+    }
+    
+    /* Card header styling */
+    .card-header h5 {
+        margin-bottom: 0;
+    }
+</style>
 </head>
 <body>
     <!-- Navigation -->
