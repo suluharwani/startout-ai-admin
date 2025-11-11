@@ -64,3 +64,7 @@ $routes->group('admin/blog/categories', function($routes) {
     $routes->post('update/(:num)', [BlogCategories::class, 'update']);
     $routes->get('delete/(:num)', [BlogCategories::class, 'delete']);
 });
+
+$routes->get('/admin/settings', 'Admin\Settings::index');
+$routes->post('/admin/settings/update', 'Admin\Settings::update');
+$routes->post('/admin/settings/update-single', 'Admin\Settings::updateSingle');
